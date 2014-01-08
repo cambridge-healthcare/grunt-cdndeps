@@ -51,7 +51,7 @@ grunt.initConfig({
 
 It is important to note that `tmp/cdns` will have a folder structure that reflects the relative paths of the URLs.
 
-*Given JSON with cdn urls*:
+**Given JSON with cdn urls**:
 
 ```json
 {
@@ -75,7 +75,7 @@ It is important to note that `tmp/cdns` will have a folder structure that reflec
 
 ```
 
-*`cdns` folder structure*:
+**`cdns` folder structure**:
 
 ```
 cdns
@@ -105,6 +105,35 @@ cdns
             └── v2.1.0
                         └── es5-shim.js
 ```
+
+## Getting a list of paths to include in `<script>` tags
+
+Once a folder is created that holds all of the required dependencies, there will most likely be a need to get a list of all the files in that folder, to include in `<script>` tags, for example. While this sits slightly outside of the scope of this plugin, we do provide a helper module in `/lib` that provides this feature.
+
+**Basic usage**
+
+`require("node-modules/grunt-cdndeps/lib/cdn_paths")(production, cdn_folder, cdn_json)`
+
+- `production`, Boolean -- whether the resulting list of paths will be used in a production environment.
+- `cdn_folder`, String -- the target folder used by `grunt-cdndeps`
+- `cdn_json`, Object -- the JSON extracted from the source file used by `grunt-cdndeps`
+
+If `production` is set to `true`, a list of the actual URLs from the JSON will be returned, but with `.min.js` appended. If `false`, a list of filepaths to the libraries in the `cdn_folder` will be returned.
+
+For cases where simply appending ".min.js" to a given URL will produce an invalid result, you can define a URL as an object instead of a String:
+
+```
+[
+  "//ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular-resource.js",
+  "//cdnjs.cloudflare.com/ajax/libs/moment.js/2.4.0/moment.js",
+  {
+    "dev": "https://raw.github.com/DmitryBaranovskiy/raphael/v2.1.2/raphael.js",
+    "prod": "//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js"
+  }
+]
+```
+
+In the above case, calling `cdn_paths` with `production = true` will give us `//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js`. With `production = false`, we will instead get `cdns/DmitryBaranovskiy/raphael/v2.1.2/raphael.js`.
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
