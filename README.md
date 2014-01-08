@@ -2,6 +2,8 @@
 
 > Local CDN dependency manager.
 
+`grunt-cdndeps` is a Grunt plugin that manages a local dependencies directory based on CDN dependency URLs specified in a given JSON file at any one time.
+
 ## Getting Started
 This plugin requires Grunt `~0.4.1`
 
@@ -25,9 +27,6 @@ In your project's Gruntfile, add a section named `cdndeps` to the data object pa
 ```js
 grunt.initConfig({
   cdndeps: {
-    options: {
-      // Task-specific options go here.
-    },
     your_target: {
       // Target-specific file lists and/or options go here.
     },
@@ -35,51 +34,76 @@ grunt.initConfig({
 })
 ```
 
-### Options
-
-#### options.separator
-Type: `String`
-Default value: `',  '`
-
-A string value that is used to do something with whatever.
-
-#### options.punctuation
-Type: `String`
-Default value: `'.'`
-
-A string value that is used to do something else with whatever else.
-
 ### Usage Examples
 
-#### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
+In this example, `grunt-cdndeps` will read the contents of `package.json` and try to find a `cdnDeps` key whose value is a list of CDN urls, or an object whose values are lists of CDN urls. It will then download all of those files into `tmp/cdns`.
 
 ```js
 grunt.initConfig({
   cdndeps: {
-    options: {},
     files: {
-      'dest/default_options': ['src/testing', 'src/123'],
+      "tmp/cdns": ["package.json"],
     },
   },
 })
+
 ```
 
-#### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
+It is important to note that `tmp/cdns` will have a folder structure that reflects the relative paths of the URLs.
 
-```js
-grunt.initConfig({
-  cdndeps: {
-    options: {
-      separator: ': ',
-      punctuation: ' !!!',
-    },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
-})
+*Given JSON with cdn urls*:
+
+```json
+{
+  "cdnDeps": {
+    "default": [
+      "//ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.js",
+      "//ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular-resource.js",
+      "//cdnjs.cloudflare.com/ajax/libs/moment.js/2.4.0/moment.js",
+      "//cdnjs.cloudflare.com/ajax/libs/moment.js/2.4.0/lang/en-gb.js",
+      "https://raw.github.com/DmitryBaranovskiy/raphael/v2.1.2/raphael.js"
+    ],
+    "IE78": [
+      "https://raw.github.com/kriskowal/es5-shim/v2.1.0/es5-shim.js",
+      "//cdnjs.cloudflare.com/ajax/libs/json3/3.2.5/json3.js"
+    ],
+    "IE7": [
+      "//cdnjs.cloudflare.com/ajax/libs/sizzle/1.10.9/sizzle.js"
+    ]
+  }
+}
+
+```
+
+*`cdns` folder structure*:
+
+```
+cdns
+├── DmitryBaranovskiy
+│   └── raphael
+│       └── v2.1.2
+│           └── raphael.js
+├── ajax
+│   └── libs
+│       ├── angularjs
+│       │   └── 1.2.3
+│       │       ├── angular-resource.js
+│       │       └── angular.js
+│       ├── json3
+│       │   └── 3.2.5
+│       │       └── json3.js
+│       ├── moment.js
+│       │   └── 2.4.0
+│       │       ├── lang
+│       │       │   └── en-gb.js
+│       │       └── moment.js
+│       └── sizzle
+│           └── 1.10.9
+│               └── sizzle.js
+└── kriskowal
+    └── es5-shim
+            └── v2.1.0
+                        └── es5-shim.js
 ```
 
 ## Contributing
@@ -87,3 +111,4 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 _(Nothing yet)_
+
