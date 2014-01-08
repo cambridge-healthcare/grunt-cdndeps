@@ -112,7 +112,7 @@ Once a folder is created that holds all of the required dependencies, there will
 
 **Basic usage**
 
-`require("node-modules/grunt-cdndeps/lib/cdn_paths")(production, cdn_folder, cdn_json)`
+`require("grunt-cdndeps")(production, cdn_folder, cdn_json)`
 
 - `production`, Boolean -- whether the resulting list of paths will be used in a production environment.
 - `cdn_folder`, String -- the target folder used by `grunt-cdndeps`

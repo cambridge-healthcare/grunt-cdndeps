@@ -2,6 +2,7 @@
   "name": "grunt-cdndeps",
   "description": "Local CDN dependency manager.",
   "version": "0.1.0",
+  "main": "./lib/cdn_paths.js",
   "homepage": "https://github.com/cambridge-healthcare/grunt-cdndeps",
   "author": {
     "name": "Cambridge Healthcare",
