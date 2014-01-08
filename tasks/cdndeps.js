@@ -61,10 +61,17 @@ module.exports = function(grunt) {
     }
   }
 
-  function extract_paths (deps) {
-    var all_deps = Object.keys(deps).reduce(function (all, group_name) {
-      return all.concat(deps[group_name]);
-    }, []);
+  function extract_paths (deps_obj) {
+    var all_deps;
+
+    if (_.isArray(deps_obj)) {
+      all_deps = deps_obj;
+    }
+    else {
+      all_deps = Object.keys(deps_obj).reduce(function (all, group_name) {
+        return all.concat(deps_obj[group_name]);
+      }, []);
+    }
 
     // Choose "dev" url if available,
     // (because we don't want .min files in dev mode)
