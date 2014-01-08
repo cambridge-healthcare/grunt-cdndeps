@@ -112,11 +112,17 @@ Once a folder is created that holds all of the required dependencies, there will
 
 **Basic usage**
 
-`require("grunt-cdndeps")(production, cdn_folder, cdn_json)`
+```
+require("grunt-cdndeps")({
+  production: true,
+  cdndeps_src: "package.json",
+  cdndeps_dest: "libraries"
+})
+```
 
 - `production`, Boolean -- whether the resulting list of paths will be used in a production environment.
-- `cdn_folder`, String -- the target folder used by `grunt-cdndeps`
-- `cdn_json`, Object -- the JSON extracted from the source file used by `grunt-cdndeps`
+- `cdndeps_src`, String -- the source file used by `grunt-cdndeps`
+- `cdndeps_dest`, String -- the target folder used by `grunt-cdndeps`
 
 If `production` is set to `true`, a list of the actual URLs from the JSON will be returned, but with `.min.js` appended. If `false`, a list of filepaths to the libraries in the `cdn_folder` will be returned.
 
