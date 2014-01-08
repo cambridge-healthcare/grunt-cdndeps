@@ -1,4 +1,4 @@
-*
+/*
  * grunt-cdndeps
  * https://github.com/cambridge-healthcare/grunt-cdndeps
  *
@@ -22,7 +22,6 @@ module.exports = function(grunt) {
   });
 
   grunt.loadTasks("tasks");
-  grunt.loadNpmTasks("grunt-contrib-clean");
 
   grunt.registerTask("default", ["cdndeps"]);
 
