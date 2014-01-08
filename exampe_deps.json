@@ -1,0 +1,26 @@
+{
+  "cdnDeps": {
+    "default": [
+      "//ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.js",
+      "//ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular-resource.js",
+      "//cdnjs.cloudflare.com/ajax/libs/moment.js/2.4.0/moment.js",
+      {
+        "dev":   "//cdnjs.cloudflare.com/ajax/libs/moment.js/2.4.0/lang/en-gb.js",
+        "prod":  "//cdnjs.cloudflare.com/ajax/libs/moment.js/2.4.0/lang/en-gb.js"
+      }, {
+        "dev": "https://raw.github.com/DmitryBaranovskiy/raphael/v2.1.2/raphael.js",
+        "prod": "//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js"
+      }
+    ],
+    "IE78": [
+      {
+        "dev": "https://raw.github.com/kriskowal/es5-shim/v2.1.0/es5-shim.js",
+        "prod": "//cdnjs.cloudflare.com/ajax/libs/es5-shim/2.1.0/es5-shim.min.js"
+      },
+      "//cdnjs.cloudflare.com/ajax/libs/json3/3.2.5/json3.js"
+    ],
+    "IE7": [
+      "//cdnjs.cloudflare.com/ajax/libs/sizzle/1.10.9/sizzle.js"
+    ]
+  }
+}
