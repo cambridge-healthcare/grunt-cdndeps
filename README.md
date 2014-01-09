@@ -80,30 +80,30 @@ It is important to note that `tmp/cdns` will have a folder structure that reflec
 ```
 cdns
 ├── DmitryBaranovskiy
-│   └── raphael
-│       └── v2.1.2
-│           └── raphael.js
+│   └── raphael
+│       └── v2.1.2
+│           └── raphael.js
 ├── ajax
-│   └── libs
-│       ├── angularjs
-│       │   └── 1.2.3
-│       │       ├── angular-resource.js
-│       │       └── angular.js
-│       ├── json3
-│       │   └── 3.2.5
-│       │       └── json3.js
-│       ├── moment.js
-│       │   └── 2.4.0
-│       │       ├── lang
-│       │       │   └── en-gb.js
-│       │       └── moment.js
-│       └── sizzle
-│           └── 1.10.9
-│               └── sizzle.js
+│   └── libs
+│       ├── angularjs
+│       │   └── 1.2.3
+│       │       ├── angular-resource.js
+│       │       └── angular.js
+│       ├── json3
+│       │   └── 3.2.5
+│       │       └── json3.js
+│       ├── moment.js
+│       │   └── 2.4.0
+│       │       ├── lang
+│       │       │   └── en-gb.js
+│       │       └── moment.js
+│       └── sizzle
+│           └── 1.10.9
+│               └── sizzle.js
 └── kriskowal
     └── es5-shim
             └── v2.1.0
-                        └── es5-shim.js
+                └── es5-shim.js
 ```
 
 ## Getting a list of paths to include in `<script>` tags
@@ -146,4 +146,3 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 _(Nothing yet)_
-
