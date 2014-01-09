@@ -6,8 +6,15 @@
   "homepage": "https://github.com/cambridge-healthcare/grunt-cdndeps",
   "author": {
     "name": "Cambridge Healthcare",
-    "email": "elise@howareyou.com"
+    "email": "hello@cambridgehealthcare.com"
   },
+  "contributors": [{
+    "name": "Elise Hein",
+    "email": "elise@howareyou.com"
+  }, {
+    "name": "Szymon Witamborski",
+    "email": "szymon@howareyou.com"
+  }],
   "repository": {
     "type": "git",
     "url": "https://github.com/cambridge-healthcare/grunt-cdndeps"
