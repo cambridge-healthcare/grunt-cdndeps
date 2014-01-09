@@ -9,8 +9,7 @@
     }, {
       "dev": "https://raw.github.com/DmitryBaranovskiy/raphael/v2.1.2/raphael.js",
       "prod": "//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js"
-    },
-    {
+    }, {
       "dev": "https://raw.github.com/kriskowal/es5-shim/v2.1.0/es5-shim.js",
       "prod": "//cdnjs.cloudflare.com/ajax/libs/es5-shim/2.1.0/es5-shim.min.js"
     },
