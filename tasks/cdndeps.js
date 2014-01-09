@@ -11,6 +11,7 @@
 "use strict";
 
 var _ = require("underscore");
+var rel_path = require("../lib/rel_path");
 
 module.exports = function(grunt) {
 
@@ -131,12 +132,6 @@ module.exports = function(grunt) {
         return no_files_in_dir;
       }
     });
-  }
-
-  // Given an url, return its relative path
-  // (everything after the first slash)
-  function rel_path (url) {
-    return url.replace(/^([a-z]*:)?(\/\/[^\/]+)*\//, "");
   }
 
   function pretty_list (style, list) {
