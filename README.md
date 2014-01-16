@@ -24,26 +24,15 @@ grunt.loadNpmTasks('grunt-cdndeps');
 ### Overview
 In your project's Gruntfile, add a section named `cdndeps` to the data object passed into `grunt.initConfig()`.
 
-```js
-grunt.initConfig({
-  cdndeps: {
-    your_target: {
-      // Target-specific file lists and/or options go here.
-    },
-  },
-})
-```
-
-### Usage Examples
-
 In this example, `grunt-cdndeps` will read the contents of `package.json` and try to find a `cdnDeps` key whose value is a list of CDN urls, or an object whose values are lists of CDN urls. It will then download all of those files into `tmp/cdns`.
 
 ```js
 grunt.initConfig({
   cdndeps: {
-    files: {
-      "tmp/cdns": ["package.json"],
-    },
+    options: {
+      src: "package.json",
+      dest: "tmp/cdns"
+    }
   },
 })
 
@@ -120,9 +109,9 @@ require("grunt-cdndeps")({
 })
 ```
 
-- `production`, Boolean -- whether the resulting list of paths will be used in a production environment.
-- `src`, String -- the source file used by `grunt-cdndeps`
-- `dest`, String -- the target folder used by `grunt-cdndeps`
+- `production`, Boolean, Default: `false` -- whether the resulting list of paths will be used in a production environment.
+- `src`, String, Default: `grunt.config("cdndeps.options.src")` -- the source file used by `grunt-cdndeps`
+- `dest`, String, Default: `grunt.config("cdndeps.options.dest")` -- the target folder used by `grunt-cdndeps`
 
 If `production` is set to `true`, a list of the actual URLs from the JSON will be returned, but with `.min.js` appended. If `false`, a list of filepaths to the libraries in the `cdn_folder` will be returned.
 
@@ -139,7 +128,7 @@ For cases where simply appending ".min.js" to a given URL will produce an invali
 ]
 ```
 
-In the above case, calling `cdn_paths` with `production = true` will give us `//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js`. With `production = false`, we will instead get `cdns/DmitryBaranovskiy/raphael/v2.1.2/raphael.js`.
+In the above case, calling `cdn_paths` with `production: true` will give us `//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js`. With `production: false`, we will instead get `cdns/DmitryBaranovskiy/raphael/v2.1.2/raphael.js`.
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
