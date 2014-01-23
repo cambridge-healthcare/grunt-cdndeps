@@ -13,10 +13,9 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     cdndeps: {
-      main: {
-        files: {
-          "deps": ["example_deps.json"]
-        }
+      options: {
+        src: "example_deps.json",
+        dest: "deps"
       }
     }
   });

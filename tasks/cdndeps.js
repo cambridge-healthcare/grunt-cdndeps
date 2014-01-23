@@ -18,47 +18,50 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-contrib-clean");
   grunt.loadNpmTasks("grunt-curl");
 
-  grunt.registerMultiTask("cdndeps",
-                          "Local CDN dependency manager.",
-                          function() {
+  grunt.registerTask("cdndeps",
+                      "Local CDN dependency manager.",
+                      function() {
 
-    this.files.forEach(function(mapping) {
+    var mapping = this.options();
 
-      validate_mapping(mapping);
+    validate_mapping(mapping);
 
-      var deps     = grunt.file.readJSON(mapping.src).cdnDeps,
-          dep_urls = extract_paths(deps);
+    var deps     = grunt.file.readJSON(mapping.src).cdnDeps,
+        dep_urls = extract_paths(deps);
 
-      // Define a mapping between required cdn url
-      // and the file path it is supposed to populate
-      var required_map = get_required_map(mapping.dest, dep_urls);
+    // Define a mapping between required cdn url
+    // and the file path it is supposed to populate
+    var required_map = get_required_map(mapping.dest, dep_urls);
 
-      var existing_files   = get_existing(mapping.dest),
-          required_files   = Object.keys(required_map),
-          missing_files    = _.difference(required_files, existing_files),
-          unrequired_files = _.difference(existing_files, required_files);
+    var existing_files   = get_existing(mapping.dest),
+        required_files   = Object.keys(required_map),
+        missing_files    = _.difference(required_files, existing_files),
+        unrequired_files = _.difference(existing_files, required_files);
 
-      if (missing_files.length) {
-        download(_.pick(required_map, missing_files));
-      }
+    if (missing_files.length) {
+      download(_.pick(required_map, missing_files));
+    }
 
-      if (unrequired_files.length) {
-        remove(unrequired_files);
-      }
+    if (unrequired_files.length) {
+      remove(unrequired_files);
+    }
 
-      // Finally clean any directories that might have become empty
-      configure_clean(mapping.dest);
-      grunt.task.run("clean:cdndeps");
-    });
+    // Finally clean any directories that might have become empty
+    configure_clean(mapping.dest);
+    grunt.task.run("clean:cdndeps");
   });
 
   function validate_mapping (mapping) {
-    if (grunt.file.isFile(mapping.dest)) {
-      grunt.warn("Destination for CDN dependencies needs to be a directory");
+    if (_.isArray(mapping.src)) {
+      grunt.warn("Please specify only one source file for cdndeps as a String, that lists all required libraries.");
     }
 
-    if (mapping.src.length > 1) {
-      grunt.warn("Please specify only one source file for cdndeps that lists all required libraries");
+    if (_.isArray(mapping.dest)) {
+      grunt.warn("Please specify the destination directory as a String.");
+    }
+
+    if (grunt.file.isFile(mapping.dest)) {
+      grunt.warn("Destination for CDN dependencies needs to be a directory.");
     }
   }
 
