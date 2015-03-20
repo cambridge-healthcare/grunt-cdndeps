@@ -22,7 +22,10 @@ module.exports = function(grunt) {
                       "Local CDN dependency manager.",
                       function() {
 
-    var mapping = this.options();
+    var mapping = this.options({
+      clean: true,
+      prune: true
+    });
 
     validate_mapping(mapping);
 
@@ -42,13 +45,16 @@ module.exports = function(grunt) {
       download(_.pick(required_map, missing_files));
     }
 
-    if (unrequired_files.length) {
+    // Prune unrequired files, if requested
+    if (mapping.prune && unrequired_files.length) {
       remove(unrequired_files);
     }
 
     // Finally clean any directories that might have become empty
-    configure_clean(mapping.dest);
-    grunt.task.run("clean:cdndeps");
+    if (mapping.clean) {
+      configure_clean(mapping.dest);
+      grunt.task.run("clean:cdndeps");
+    }
   });
 
   function validate_mapping (mapping) {
