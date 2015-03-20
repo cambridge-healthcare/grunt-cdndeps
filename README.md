@@ -2,7 +2,7 @@
 
 > Local CDN dependency manager.
 
-`grunt-cdndeps` is a Grunt plugin that manages a local dependencies directory based on CDN dependency URLs specified in a given JSON file at any one time.
+`grunt-cdndeps` is a Grunt plugin that manages a local dependencies directory based on a set of content delivery network (CDN) dependency URLs specified in a given JSON file at any one time.
 
 ## Getting Started
 This plugin requires Grunt `~0.4.1`
@@ -19,10 +19,43 @@ Once the plugin has been installed, it may be enabled inside your Gruntfile with
 grunt.loadNpmTasks('grunt-cdndeps');
 ```
 
-## The "cdndeps" task
+## Cdndeps task
 
-### Overview
-In your project's Gruntfile, add a section named `cdndeps` to the data object passed into `grunt.initConfig()`.
+_Run this task with the `grunt cdndeps` command._
+
+### Options
+
+#### src
+Type: `String`
+
+Default: empty string
+
+String containing the name of a JSON file which lists the CDN URLs `grunt-cdndeps` is to download.
+
+#### dest
+Type: `String`
+
+Default: empty string
+
+String containing the name of a directory into which `grunt-cdndeps` will download the CDN URLs. _It's important to note that the destination directory will have a subsequent folder structure that reflects the relative path of each URL._
+
+#### prune
+Type: `Boolean`
+
+Default: `true`
+
+By default `grunt-cdndeps` will prune (remove) any files which exist in the directory `dest` directory after downloading and mirroring the CDN URLs. Setting `prune` to `false` will disable this and preserve existing files.
+
+#### clean
+Type: `Boolean`
+
+Default: `true`
+
+By default `grunt-cdndeps` will clean up any empty directories that result from downloading and mirroring the CDN URLs. Setting `clean` to `false` will disable this and leave empty directories in situ.
+
+### Usage Examples
+
+#### Mirror a set of CDN URLs
 
 In this example, `grunt-cdndeps` will read the contents of `package.json` and try to find a `cdnDeps` key whose value is a list of CDN urls, or an object whose values are lists of CDN urls. It will then download all of those files into `tmp/cdns`.
 
@@ -38,9 +71,9 @@ grunt.initConfig({
 
 ```
 
-It is important to note that `tmp/cdns` will have a folder structure that reflects the relative paths of the URLs.
+As mentioned above, it's important to note that `tmp/cdns` will have a folder structure that reflects the relative paths of the URLs.
 
-**Given JSON with cdn urls**:
+##### Sample JSON File
 
 ```json
 {
@@ -63,8 +96,7 @@ It is important to note that `tmp/cdns` will have a folder structure that reflec
 }
 
 ```
-
-**`cdns` folder structure**:
+##### Resulting folder structure
 
 ```
 cdns
@@ -95,13 +127,13 @@ cdns
                 └── es5-shim.js
 ```
 
-## Getting a list of paths to include in `<script>` tags
+#### Getting a list of paths to include in `<script>` tags
 
 Once a folder is created that holds all of the required dependencies, there will most likely be a need to get a list of all the files in that folder, to include in `<script>` tags, for example. While this sits slightly outside of the scope of this plugin, we do provide a helper module in `/lib` that provides this feature.
 
-**Basic usage**
+##### Basic usage
 
-```
+```javascript
 require("grunt-cdndeps")({
   production: true,
   src: "package.json",
@@ -109,9 +141,26 @@ require("grunt-cdndeps")({
 })
 ```
 
-- `production`, Boolean, Default: `false` -- whether the resulting list of paths will be used in a production environment.
-- `src`, String, Default: `grunt.config("cdndeps.options.src")` -- the source file used by `grunt-cdndeps`
-- `dest`, String, Default: `grunt.config("cdndeps.options.dest")` -- the target folder used by `grunt-cdndeps`
+###### production
+Type: `Boolean`
+
+Default: `false`
+
+Whether the resulting list of paths will be used in a production environment.
+
+###### src
+Type: `String`
+
+Default: `grunt.config("cdndeps.options.src")`
+
+The source file used by `grunt-cdndeps`.
+
+###### dest
+Type: `String`
+
+Default: `grunt.config("cdndeps.options.dest")`
+
+The target folder used by `grunt-cdndeps`.
 
 If `production` is set to `true`, a list of the actual URLs from the JSON will be returned, but with `.min.js` appended. If `false`, a list of filepaths to the libraries in the `cdn_folder` will be returned.
 
